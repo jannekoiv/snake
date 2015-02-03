@@ -34,4 +34,8 @@ public class Vector2i
         this.y += vector.y;
         return this;
     }
+    public static Vector2i add(Vector2i vectorA, Vector2i vectorB)
+    {
+        return new Vector2i(vectorA.x + vectorB.x, vectorA.y + vectorB.y);
+    }
 }
