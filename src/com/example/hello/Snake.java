@@ -93,6 +93,18 @@ public class Snake
         return Segment.SEGMENT_STOP;
     }
 
+    public boolean isSnakeMoving()
+    {
+        if (direction != Segment.SEGMENT_STOP)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public void draw(Canvas canvas, Image[] images)
     {
         t += speed;
@@ -105,6 +117,10 @@ public class Snake
             segment.type = getOrientation();
             prevDirection = direction;
             Segment newSegment = new Segment(newPosition, getOrientation());
+            if (isSnakeMoving() == true)
+            {
+                newSegment.type |= Segment.SEGMENT_HEAD;
+            }
             segments.addFirst(newSegment);
             if (segments.size() > length)
             {
