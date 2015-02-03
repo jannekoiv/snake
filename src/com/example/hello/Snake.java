@@ -101,12 +101,10 @@ public class Snake
             t = 0;
 
             Segment segment = segments.getFirst();
-            int newPositionX = segment.position.getX() + getDirectionX(direction);
-            int newPositionY = segment.position.getY() + getDirectionY(direction);
-
+            Vector2i newPosition = new Vector2i(Vector2i.add(segment.position, getDirection(direction)));
             segment.type = getOrientation();
             prevDirection = direction;
-            Segment newSegment = new Segment(new Vector2i(newPositionX, newPositionY), getOrientation());
+            Segment newSegment = new Segment(newPosition, getOrientation());
             segments.addFirst(newSegment);
             if (segments.size() > length)
             {
