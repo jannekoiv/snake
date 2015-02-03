@@ -13,6 +13,7 @@ public class Segment
     public static final int SEGMENT_LEFT = 4;
     public static final int SEGMENT_RIGHT = 8;
     public static final int SEGMENT_HEAD = 16;
+    public static final int SEGMENT_TAIL = 32;
 
     Vector2i position;
     public int type;

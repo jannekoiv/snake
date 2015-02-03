@@ -56,6 +56,10 @@ public class Game
         snakeImages[Segment.SEGMENT_RIGHT | Segment.SEGMENT_HEAD] = new Image(view, R.drawable.snakeheadright);
         snakeImages[Segment.SEGMENT_UP | Segment.SEGMENT_HEAD] = new Image(view, R.drawable.snakeheadup);
         snakeImages[Segment.SEGMENT_DOWN | Segment.SEGMENT_HEAD] = new Image(view, R.drawable.snakeheaddown);
+        snakeImages[Segment.SEGMENT_LEFT | Segment.SEGMENT_TAIL] = new Image(view, R.drawable.snaketailleft);
+        snakeImages[Segment.SEGMENT_RIGHT | Segment.SEGMENT_TAIL] = new Image(view, R.drawable.snaketailright);
+        snakeImages[Segment.SEGMENT_UP | Segment.SEGMENT_TAIL] = new Image(view, R.drawable.snaketailup);
+        snakeImages[Segment.SEGMENT_DOWN | Segment.SEGMENT_TAIL] = new Image(view, R.drawable.snaketaildown);
     }
 
     private void initBackground(GameView view)
