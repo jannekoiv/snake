@@ -10,6 +10,11 @@ public class Vector2i
     public Vector2i()
     {
     }
+    public Vector2i(Vector2i vector)
+    {
+        this.x = vector.x;
+        this.y = vector.y;
+    }
     public Vector2i(int x, int y)
     {
         this.x = x;
@@ -23,10 +28,10 @@ public class Vector2i
     {
         return y;
     }
-    public Vector2i Add(Vector2i p)
+    public Vector2i add(Vector2i vector)
     {
-        this.x += p.getX();
-        this.y += p.getY();
+        this.x += vector.x;
+        this.y += vector.y;
         return this;
     }
 }
