@@ -107,27 +107,25 @@ public class Snake
 
     public void draw(Canvas canvas, Image[] images)
     {
-        t += speed;
-        if (t >= 10)
+        if (isSnakeMoving())
         {
-            t = 0;
-
-            Segment segment = segments.getFirst();
-            Vector2i newPosition = new Vector2i(Vector2i.add(segment.position, getDirection(direction)));
-            segment.type = getOrientation();
-            prevDirection = direction;
-            Segment newSegment = new Segment(newPosition, getOrientation());
-            if (isSnakeMoving() == true)
+            t += speed;
+            if (t >= 10)
             {
+                t = 0;
+                Segment segment = segments.getFirst();
+                Vector2i newPosition = new Vector2i(Vector2i.add(segment.position, getDirection(direction)));
+                segment.type = getOrientation();
+                prevDirection = direction;
+                Segment newSegment = new Segment(newPosition, getOrientation());
                 newSegment.type |= Segment.SEGMENT_HEAD;
-            }
-            segments.addFirst(newSegment);
-            if (segments.size() > length)
-            {
-                segments.removeLast();
+                segments.addFirst(newSegment);
+                if (segments.size() > length)
+                {
+                    segments.removeLast();
+                }
             }
         }
-
         ListIterator<Segment> iterator = segments.listIterator();
         while (iterator.hasNext())
         {
