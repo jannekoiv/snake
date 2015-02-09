@@ -34,6 +34,17 @@ public class Vector2i
         this.y += vector.y;
         return this;
     }
+    public boolean equals(Vector2i vector)
+    {
+        if (x == vector.x && y == vector.y)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     public static Vector2i add(Vector2i vectorA, Vector2i vectorB)
     {
         return new Vector2i(vectorA.x + vectorB.x, vectorA.y + vectorB.y);
