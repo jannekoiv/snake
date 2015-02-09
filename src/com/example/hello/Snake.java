@@ -11,8 +11,8 @@ import java.util.ListIterator;
 public class Snake
 {
 
-    private int direction;
-    private int prevDirection;
+    private Vector2i direction;
+    private Vector2i prevDirection;
 
     private float t = 0;
     public float speed = 1;
@@ -23,20 +23,21 @@ public class Snake
     public Snake(GameView view)
     {
         this.view = view;
-        direction = Segment.SEGMENT_STOP;
+        direction = new Vector2i(0, 0);
+        prevDirection = new Vector2i(0, 0);
         segments = new LinkedList<Segment>();
         segments.addFirst(new Segment(new Vector2i(5, 5), Segment.SEGMENT_STOP));
     }
 
     public int getOrientation()
     {
-        if (direction == Segment.SEGMENT_UP)
+        if (direction.equals(new Vector2i(0, -1)))
         {
-            if (prevDirection == Segment.SEGMENT_RIGHT)
+            if (prevDirection.equals(new Vector2i(1, 0)))
             {
                 return Segment.SEGMENT_UP | Segment.SEGMENT_RIGHT;
             }
-            else if (prevDirection == Segment.SEGMENT_LEFT)
+            else if (prevDirection.equals(new Vector2i(-1, 0)))
             {
                 return Segment.SEGMENT_UP | Segment.SEGMENT_LEFT;
             }
@@ -45,13 +46,13 @@ public class Snake
                 return Segment.SEGMENT_UP;
             }
         }
-        if (direction == Segment.SEGMENT_DOWN)
+        if (direction.equals(new Vector2i(0, 1)))
         {
-            if (prevDirection == Segment.SEGMENT_RIGHT)
+            if (prevDirection.equals(new Vector2i(1, 0)))
             {
                 return Segment.SEGMENT_DOWN | Segment.SEGMENT_RIGHT;
             }
-            else if (prevDirection == Segment.SEGMENT_LEFT)
+            else if (prevDirection.equals(new Vector2i(-1, 0)))
             {
                 return Segment.SEGMENT_DOWN | Segment.SEGMENT_LEFT;
             }
@@ -60,13 +61,13 @@ public class Snake
                 return Segment.SEGMENT_DOWN;
             }
         }
-        if (direction == Segment.SEGMENT_LEFT)
+        if (direction.equals(new Vector2i(-1, 0)))
         {
-            if (prevDirection == Segment.SEGMENT_UP)
+            if (prevDirection.equals(new Vector2i(0, -1)))
             {
                 return Segment.SEGMENT_RIGHT | Segment.SEGMENT_DOWN;
             }
-            else if (prevDirection == Segment.SEGMENT_DOWN)
+            else if (prevDirection.equals(new Vector2i(0, 1)))
             {
                 return Segment.SEGMENT_RIGHT | Segment.SEGMENT_UP;
             }
@@ -75,13 +76,13 @@ public class Snake
                 return Segment.SEGMENT_LEFT;
             }
         }
-        if (direction == Segment.SEGMENT_RIGHT)
+        if (direction.equals(new Vector2i(1, 0)))
         {
-            if (prevDirection == Segment.SEGMENT_UP)
+            if (prevDirection.equals(new Vector2i(0, -1)))
             {
                 return Segment.SEGMENT_LEFT | Segment.SEGMENT_DOWN;
             }
-            else if (prevDirection == Segment.SEGMENT_DOWN)
+            else if (prevDirection.equals(new Vector2i(0, 1)))
             {
                 return Segment.SEGMENT_LEFT | Segment.SEGMENT_UP;
             }
@@ -95,7 +96,7 @@ public class Snake
 
     public boolean isSnakeMoving()
     {
-        if (direction != Segment.SEGMENT_STOP)
+        if (!direction.equals(new Vector2i(0, 0)))
         {
             return true;
         }
@@ -114,7 +115,7 @@ public class Snake
             {
                 t = 0;
                 Segment segment = segments.getFirst();
-                Vector2i newPosition = new Vector2i(Vector2i.add(segment.position, getDirection(direction)));
+                Vector2i newPosition = new Vector2i(Vector2i.add(segment.position, direction));
                 segment.type = getOrientation();
                 prevDirection = direction;
                 Segment newSegment = new Segment(newPosition, getOrientation());
@@ -171,7 +172,7 @@ public class Snake
         }
     }
 
-    public void setDirection(int direction)
+    public void setDirection(Vector2i direction)
     {
         this.direction = direction;
     }

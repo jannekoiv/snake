@@ -111,19 +111,19 @@ public class Game
 
         if (buttons[0].containsPoint(point))
         {
-            snake.setDirection(Segment.SEGMENT_LEFT);
+            snake.setDirection(new Vector2i(-1, 0));
         }
         else if (buttons[1].containsPoint(point))
         {
-            snake.setDirection(Segment.SEGMENT_RIGHT);
+            snake.setDirection(new Vector2i(1, 0));
         }
         else if (buttons[2].containsPoint(point))
         {
-            snake.setDirection(Segment.SEGMENT_UP);
+            snake.setDirection(new Vector2i(0, -1));
         }
         else if (buttons[3].containsPoint(point))
         {
-            snake.setDirection(Segment.SEGMENT_DOWN);
+            snake.setDirection(new Vector2i(0, 1));
         }
     }
 }
