@@ -7,26 +7,18 @@ import android.graphics.Canvas;
  */
 public class Segment
 {
-    public static final int SEGMENT_STOP = 0;
-    public static final int SEGMENT_UP = 1;
-    public static final int SEGMENT_DOWN = 2;
-    public static final int SEGMENT_LEFT = 4;
-    public static final int SEGMENT_RIGHT = 8;
-    public static final int SEGMENT_HEAD = 16;
-    public static final int SEGMENT_TAIL = 32;
-
     Vector2i position;
-    public int type;
+    Vector2i direction;
 
-    public Segment(Vector2i position, int type)
+    public Segment(Vector2i position, Vector2i direction)
     {
         this.position = position;
-        this.type = type;
+        this.direction = direction;
     }
 
     public void draw(Canvas canvas, Image[] images)
     {
-        images[type].move(new Vector2(position.getX() * 48 + 24, position.getY() * 48 + 24));
-        images[type].draw(canvas);
+        images[0].move(new Vector2(position.getX() * 48 + 24, position.getY() * 48 + 24));
+        images[0].draw(canvas);
     }
 }
