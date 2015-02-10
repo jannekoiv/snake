@@ -48,9 +48,11 @@ public class Snake
             {
                 t = 0;
                 Segment segment = segments.getFirst();
+                segment.isFirstSegment = false;
                 segment.setNextDirection(direction);
                 Vector2i newPosition = new Vector2i(Vector2i.add(segment.position, direction));
                 Segment newSegment = new Segment(newPosition, direction);
+                newSegment.isFirstSegment = true;
                 segments.addFirst(newSegment);
                 if (segments.size() > length)
                 {
