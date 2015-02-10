@@ -39,7 +39,7 @@ public class Snake
         }
     }
 
-    public void draw(Canvas canvas, Image[][][][] images)
+    public void draw(Canvas canvas, Image[][][][][] images)
     {
         if (isSnakeMoving())
         {
@@ -57,6 +57,7 @@ public class Snake
                     segments.removeLast();
                 }
                 segments.getLast().direction = segments.getLast().nextDirection;
+                segments.getLast().isLastSegment = true;
             }
         }
         ListIterator<Segment> iterator = segments.listIterator();
