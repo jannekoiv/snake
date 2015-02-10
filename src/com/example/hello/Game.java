@@ -15,7 +15,7 @@ public class Game
     private Snake snake;
     private LinkedList<Bottle> bottles;
     private Image bottleImage;
-    private Image[] snakeImages;
+    private Image[][][][] snakeImages;
 
     public Game()
     {
@@ -41,25 +41,32 @@ public class Game
     private void initSnake(GameView view)
     {
         snake = new Snake(view);
-        snakeImages = new Image[256];
-        snakeImages[0] = new Image(view, R.drawable.snakestop);
+        snakeImages = new Image[5][5][5][5];
 
-//        snakeImages[Segment.SEGMENT_LEFT] = new Image(view, R.drawable.snakehorizontal);
-//        snakeImages[Segment.SEGMENT_RIGHT] = new Image(view, R.drawable.snakehorizontal);
-//        snakeImages[Segment.SEGMENT_UP] = new Image(view, R.drawable.snakevertical);
-//        snakeImages[Segment.SEGMENT_DOWN] = new Image(view, R.drawable.snakevertical);
-//        snakeImages[Segment.SEGMENT_LEFT | Segment.SEGMENT_UP] = new Image(view, R.drawable.snakeleftup);
-//        snakeImages[Segment.SEGMENT_RIGHT | Segment.SEGMENT_UP] = new Image(view, R.drawable.snakerightup);
-//        snakeImages[Segment.SEGMENT_LEFT | Segment.SEGMENT_DOWN] = new Image(view, R.drawable.snakeleftdown);
-//        snakeImages[Segment.SEGMENT_RIGHT | Segment.SEGMENT_DOWN] = new Image(view, R.drawable.snakerightdown);
-//        snakeImages[Segment.SEGMENT_LEFT | Segment.SEGMENT_HEAD] = new Image(view, R.drawable.snakeheadleft);
-//        snakeImages[Segment.SEGMENT_RIGHT | Segment.SEGMENT_HEAD] = new Image(view, R.drawable.snakeheadright);
-//        snakeImages[Segment.SEGMENT_UP | Segment.SEGMENT_HEAD] = new Image(view, R.drawable.snakeheadup);
-//        snakeImages[Segment.SEGMENT_DOWN | Segment.SEGMENT_HEAD] = new Image(view, R.drawable.snakeheaddown);
-//        snakeImages[Segment.SEGMENT_LEFT | Segment.SEGMENT_TAIL] = new Image(view, R.drawable.snaketailleft);
-//        snakeImages[Segment.SEGMENT_RIGHT | Segment.SEGMENT_TAIL] = new Image(view, R.drawable.snaketailright);
-//        snakeImages[Segment.SEGMENT_UP | Segment.SEGMENT_TAIL] = new Image(view, R.drawable.snaketailup);
-//        snakeImages[Segment.SEGMENT_DOWN | Segment.SEGMENT_TAIL] = new Image(view, R.drawable.snaketaildown);
+        snakeImages[1][1][1][1] = new Image(view, R.drawable.snakestop);
+        snakeImages[1][1][0][1] = new Image(view, R.drawable.snakehorizontal);
+        snakeImages[1][1][2][1] = new Image(view, R.drawable.snakehorizontal);
+        snakeImages[1][1][1][0] = new Image(view, R.drawable.snakevertical);
+        snakeImages[1][1][1][2] = new Image(view, R.drawable.snakevertical);
+
+        snakeImages[1][1][1][1] = new Image(view, R.drawable.snakestop);
+        snakeImages[0][1][0][1] = new Image(view, R.drawable.snakehorizontal);
+        snakeImages[2][1][2][1] = new Image(view, R.drawable.snakehorizontal);
+        snakeImages[1][0][1][0] = new Image(view, R.drawable.snakevertical);
+        snakeImages[1][2][1][2] = new Image(view, R.drawable.snakevertical);
+
+
+        snakeImages[2][1][1][0] = new Image(view, R.drawable.snakerightup);
+        snakeImages[2][1][1][2] = new Image(view, R.drawable.snakerightdown);
+
+        snakeImages[0][1][1][0] = new Image(view, R.drawable.snakeleftup);
+        snakeImages[0][1][1][2] = new Image(view, R.drawable.snakeleftdown);
+
+        snakeImages[1][0][0][1] = new Image(view, R.drawable.snakerightdown);
+        snakeImages[1][0][2][1] = new Image(view, R.drawable.snakeleftdown);
+
+        snakeImages[1][2][0][1] = new Image(view, R.drawable.snakerightup);
+        snakeImages[1][2][2][1] = new Image(view, R.drawable.snakeleftup);
     }
 
     private void initBackground(GameView view)
