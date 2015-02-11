@@ -2,6 +2,7 @@ package com.example.hello;
 
 import android.graphics.Canvas;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -15,7 +16,6 @@ public class Game
     private Snake snake;
     private LinkedList<Bottle> bottles;
     private Image bottleImage;
-    private Image[][][][][] snakeImages;
 
     public Game()
     {
@@ -41,48 +41,6 @@ public class Game
     private void initSnake(GameView view)
     {
         snake = new Snake(view);
-        snakeImages = new Image[5][5][5][5][5];
-
-        snakeImages[1][1][1][1][0] = new Image(view, R.drawable.snakestop);
-        snakeImages[1][1][0][1][0] = new Image(view, R.drawable.snakehorizontal);
-        snakeImages[1][1][2][1][0] = new Image(view, R.drawable.snakehorizontal);
-        snakeImages[1][1][1][0][0] = new Image(view, R.drawable.snakevertical);
-        snakeImages[1][1][1][2][0] = new Image(view, R.drawable.snakevertical);
-        snakeImages[1][1][0][1][1] = new Image(view, R.drawable.snakeheadleft);
-        snakeImages[1][1][2][1][1] = new Image(view, R.drawable.snakeheadright);
-        snakeImages[1][1][1][0][1] = new Image(view, R.drawable.snakeheadup);
-        snakeImages[1][1][1][2][1] = new Image(view, R.drawable.snakeheaddown);
-        snakeImages[1][1][0][1][2] = new Image(view, R.drawable.snaketailleft);
-        snakeImages[1][1][2][1][2] = new Image(view, R.drawable.snaketailright);
-        snakeImages[1][1][1][0][2] = new Image(view, R.drawable.snaketailup);
-        snakeImages[1][1][1][2][2] = new Image(view, R.drawable.snaketaildown);
-
-        snakeImages[1][1][1][1][0] = new Image(view, R.drawable.snakestop);
-        snakeImages[0][1][0][1][0] = new Image(view, R.drawable.snakehorizontal);
-        snakeImages[2][1][2][1][0] = new Image(view, R.drawable.snakehorizontal);
-        snakeImages[1][0][1][0][0] = new Image(view, R.drawable.snakevertical);
-        snakeImages[1][2][1][2][0] = new Image(view, R.drawable.snakevertical);
-        snakeImages[0][1][0][1][1] = new Image(view, R.drawable.snakeheadleft);
-        snakeImages[2][1][2][1][1] = new Image(view, R.drawable.snakeheadright);
-        snakeImages[1][0][1][0][1] = new Image(view, R.drawable.snakeheadup);
-        snakeImages[1][2][1][2][1] = new Image(view, R.drawable.snakeheaddown);
-        snakeImages[0][1][0][1][2] = new Image(view, R.drawable.snaketailleft);
-        snakeImages[2][1][2][1][2] = new Image(view, R.drawable.snaketailright);
-        snakeImages[1][0][1][0][2] = new Image(view, R.drawable.snaketailup);
-        snakeImages[1][2][1][2][2] = new Image(view, R.drawable.snaketaildown);
-
-
-        snakeImages[2][1][1][0][0] = new Image(view, R.drawable.snakerightup);
-        snakeImages[2][1][1][2][0] = new Image(view, R.drawable.snakerightdown);
-
-        snakeImages[0][1][1][0][0] = new Image(view, R.drawable.snakeleftup);
-        snakeImages[0][1][1][2][0] = new Image(view, R.drawable.snakeleftdown);
-
-        snakeImages[1][0][0][1][0] = new Image(view, R.drawable.snakerightdown);
-        snakeImages[1][0][2][1][0] = new Image(view, R.drawable.snakeleftdown);
-
-        snakeImages[1][2][0][1][0] = new Image(view, R.drawable.snakerightup);
-        snakeImages[1][2][2][1][0] = new Image(view, R.drawable.snakeleftup);
     }
 
     private void initBackground(GameView view)
@@ -126,7 +84,7 @@ public class Game
             }
         }
 
-        snake.draw(canvas, snakeImages);
+        snake.draw(canvas);
     }
 
     public void onTouchEventDown(Vector2 point)
