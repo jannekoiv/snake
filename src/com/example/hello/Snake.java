@@ -86,8 +86,15 @@ public class Snake
 
     public boolean isSnakeMoving()
     {
-        if (!direction.equals(new Vector2i(0, 0)))
+        return !direction.isZero();
+    }
+
+    public boolean updateTime()
+    {
+        t += speed;
+        if (t >= 10)
         {
+            t = 0;
             return true;
         }
         else
@@ -96,36 +103,44 @@ public class Snake
         }
     }
 
-    public void draw(Canvas canvas)
+    public void updateSegments()
     {
-        HashMap map = new HashMap();
-        if (isSnakeMoving())
+        Segment segment = segments.getFirst();
+        segment.isFirstSegment = false;
+        segment.setNextDirection(direction);
+        Vector2i newPosition = new Vector2i(Vector2i.add(segment.position, direction));
+        Segment newSegment = new Segment(newPosition, direction);
+        newSegment.isFirstSegment = true;
+        segments.addFirst(newSegment);
+        if (segments.size() > length)
         {
-            t += speed;
-            if (t >= 10)
-            {
-                t = 0;
-                Segment segment = segments.getFirst();
-                segment.isFirstSegment = false;
-                segment.setNextDirection(direction);
-                Vector2i newPosition = new Vector2i(Vector2i.add(segment.position, direction));
-                Segment newSegment = new Segment(newPosition, direction);
-                newSegment.isFirstSegment = true;
-                segments.addFirst(newSegment);
-                if (segments.size() > length)
-                {
-                    segments.removeLast();
-                }
-                segments.getLast().direction = segments.getLast().nextDirection;
-                segments.getLast().isLastSegment = true;
-            }
+            segments.removeLast();
         }
+        segments.getLast().direction = segments.getLast().nextDirection;
+        segments.getLast().isLastSegment = true;
+    }
+
+    public void drawSegments(Canvas canvas)
+    {
         ListIterator<Segment> iterator = segments.listIterator();
         while (iterator.hasNext())
         {
             Segment segment = iterator.next();
             segment.draw(canvas, images);
         }
+    }
+
+    public void draw(Canvas canvas)
+    {
+        HashMap map = new HashMap();
+        if (isSnakeMoving())
+        {
+            if (updateTime() == true)
+            {
+                updateSegments();
+            }
+        }
+        drawSegments(canvas);
     }
 
     public void setDirection(Vector2i direction)
