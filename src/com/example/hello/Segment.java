@@ -2,6 +2,8 @@ package com.example.hello;
 
 import android.graphics.Canvas;
 
+import java.util.HashMap;
+
 /**
  * Created by jak on 1/11/15.
  */
@@ -27,7 +29,7 @@ public class Segment
         this.nextDirection = nextDirection;
     }
 
-    public void draw(Canvas canvas, Image[][][][][] images)
+    public void draw(Canvas canvas, HashMap images)
     {
         int i = direction.getX() + 1;
         int j = direction.getY() + 1;
@@ -42,7 +44,12 @@ public class Segment
         {
             t = 2;
         }
-        images[i][j][k][l][t].move(new Vector2(position.getX() * 48 + 24, position.getY() * 48 + 24));
-        images[i][j][k][l][t].draw(canvas);
+        int hashKey = Snake.generateHashKey(i, j, k, l, t);
+
+        Image image = (Image)images.get(hashKey);
+
+
+        image.move(new Vector2(position.getX() * 48 + 24, position.getY() * 48 + 24));
+        image.draw(canvas);
     }
 }

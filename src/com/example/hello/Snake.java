@@ -2,6 +2,7 @@ package com.example.hello;
 
 import android.graphics.Canvas;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -16,7 +17,22 @@ public class Snake
     public float speed = 1;
     public int length = 5;
     LinkedList<Segment> segments;
-    private Image[][][][][] images;
+    private HashMap images;
+
+
+    public static int generateHashKey(int i, int j, int k, int l, int m)
+    {
+        return i * 10000 +
+               j * 1000 +
+               k * 100 +
+               l * 10 +
+               m;
+    }
+
+    public Image newImage(int resource)
+    {
+        return new Image(view, resource);
+    }
 
     public Snake(GameView view)
     {
@@ -24,41 +40,48 @@ public class Snake
         direction = new Vector2i(0, 0);
         segments = new LinkedList<Segment>();
         segments.addFirst(new Segment(new Vector2i(5, 5), new Vector2i(0, 0)));
-        images = new Image[5][5][5][5][5];
-        images[1][1][1][1][0] = new Image(view, R.drawable.snakestop);
-        images[1][1][0][1][0] = new Image(view, R.drawable.snakehorizontal);
-        images[1][1][2][1][0] = new Image(view, R.drawable.snakehorizontal);
-        images[1][1][1][0][0] = new Image(view, R.drawable.snakevertical);
-        images[1][1][1][2][0] = new Image(view, R.drawable.snakevertical);
-        images[1][1][0][1][1] = new Image(view, R.drawable.snakeheadleft);
-        images[1][1][2][1][1] = new Image(view, R.drawable.snakeheadright);
-        images[1][1][1][0][1] = new Image(view, R.drawable.snakeheadup);
-        images[1][1][1][2][1] = new Image(view, R.drawable.snakeheaddown);
-        images[1][1][0][1][2] = new Image(view, R.drawable.snaketailleft);
-        images[1][1][2][1][2] = new Image(view, R.drawable.snaketailright);
-        images[1][1][1][0][2] = new Image(view, R.drawable.snaketailup);
-        images[1][1][1][2][2] = new Image(view, R.drawable.snaketaildown);
-        images[1][1][1][1][0] = new Image(view, R.drawable.snakestop);
-        images[0][1][0][1][0] = new Image(view, R.drawable.snakehorizontal);
-        images[2][1][2][1][0] = new Image(view, R.drawable.snakehorizontal);
-        images[1][0][1][0][0] = new Image(view, R.drawable.snakevertical);
-        images[1][2][1][2][0] = new Image(view, R.drawable.snakevertical);
-        images[0][1][0][1][1] = new Image(view, R.drawable.snakeheadleft);
-        images[2][1][2][1][1] = new Image(view, R.drawable.snakeheadright);
-        images[1][0][1][0][1] = new Image(view, R.drawable.snakeheadup);
-        images[1][2][1][2][1] = new Image(view, R.drawable.snakeheaddown);
-        images[0][1][0][1][2] = new Image(view, R.drawable.snaketailleft);
-        images[2][1][2][1][2] = new Image(view, R.drawable.snaketailright);
-        images[1][0][1][0][2] = new Image(view, R.drawable.snaketailup);
-        images[1][2][1][2][2] = new Image(view, R.drawable.snaketaildown);
-        images[2][1][1][0][0] = new Image(view, R.drawable.snakerightup);
-        images[2][1][1][2][0] = new Image(view, R.drawable.snakerightdown);
-        images[0][1][1][0][0] = new Image(view, R.drawable.snakeleftup);
-        images[0][1][1][2][0] = new Image(view, R.drawable.snakeleftdown);
-        images[1][0][0][1][0] = new Image(view, R.drawable.snakerightdown);
-        images[1][0][2][1][0] = new Image(view, R.drawable.snakeleftdown);
-        images[1][2][0][1][0] = new Image(view, R.drawable.snakerightup);
-        images[1][2][2][1][0] = new Image(view, R.drawable.snakeleftup);
+
+        images = new HashMap();
+
+        images.put(generateHashKey(1, 1, 1, 1, 0), newImage(R.drawable.snakestop));
+        images.put(generateHashKey(1, 1, 0, 1, 0), newImage(R.drawable.snakehorizontal));
+        images.put(generateHashKey(1, 1, 2, 1, 0), newImage(R.drawable.snakehorizontal));
+        images.put(generateHashKey(1, 1, 1, 0, 0), newImage(R.drawable.snakevertical));
+        images.put(generateHashKey(1, 1, 1, 2, 0), newImage(R.drawable.snakevertical));
+        images.put(generateHashKey(0, 1, 0, 1, 0), newImage(R.drawable.snakehorizontal));
+        images.put(generateHashKey(2, 1, 2, 1, 0), newImage(R.drawable.snakehorizontal));
+        images.put(generateHashKey(1, 0, 1, 0, 0), newImage(R.drawable.snakevertical));
+        images.put(generateHashKey(1, 2, 1, 2, 0), newImage(R.drawable.snakevertical));
+
+        images.put(generateHashKey(1, 1, 0, 1, 1), newImage(R.drawable.snakeheadleft));
+        images.put(generateHashKey(1, 1, 2, 1, 1), newImage(R.drawable.snakeheadright));
+        images.put(generateHashKey(1, 1, 1, 0, 1), newImage(R.drawable.snakeheadup));
+        images.put(generateHashKey(1, 1, 1, 2, 1), newImage(R.drawable.snakeheaddown));
+
+        images.put(generateHashKey(1, 1, 0, 1, 2), newImage(R.drawable.snaketailleft));
+        images.put(generateHashKey(1, 1, 2, 1, 2), newImage(R.drawable.snaketailright));
+        images.put(generateHashKey(1, 1, 1, 0, 2), newImage(R.drawable.snaketailup));
+        images.put(generateHashKey(1, 1, 1, 2, 2), newImage(R.drawable.snaketaildown));
+
+        images.put(generateHashKey(0, 1, 0, 1, 1), newImage(R.drawable.snakeheadleft));
+        images.put(generateHashKey(2, 1, 2, 1, 1), newImage(R.drawable.snakeheadright));
+        images.put(generateHashKey(1, 0, 1, 0, 1), newImage(R.drawable.snakeheadup));
+        images.put(generateHashKey(1, 2, 1, 2, 1), newImage(R.drawable.snakeheaddown));
+
+        images.put(generateHashKey(0, 1, 0, 1, 2), newImage(R.drawable.snaketailleft));
+        images.put(generateHashKey(2, 1, 2, 1, 2), newImage(R.drawable.snaketailright));
+        images.put(generateHashKey(1, 0, 1, 0, 2), newImage(R.drawable.snaketailup));
+        images.put(generateHashKey(1, 2, 1, 2, 2), newImage(R.drawable.snaketaildown));
+
+        images.put(generateHashKey(2, 1, 1, 0, 0), newImage(R.drawable.snakerightup));
+        images.put(generateHashKey(2, 1, 1, 2, 0), newImage(R.drawable.snakerightdown));
+        images.put(generateHashKey(0, 1, 1, 0, 0), newImage(R.drawable.snakeleftup));
+        images.put(generateHashKey(0, 1, 1, 2, 0), newImage(R.drawable.snakeleftdown));
+
+        images.put(generateHashKey(1, 0, 0, 1, 0), newImage(R.drawable.snakerightdown));
+        images.put(generateHashKey(1, 0, 2, 1, 0), newImage(R.drawable.snakeleftdown));
+        images.put(generateHashKey(1, 2, 0, 1, 0), newImage(R.drawable.snakerightup));
+        images.put(generateHashKey(1, 2, 2, 1, 0), newImage(R.drawable.snakeleftup));
     }
 
     public boolean isSnakeMoving()
@@ -75,6 +98,7 @@ public class Snake
 
     public void draw(Canvas canvas)
     {
+        HashMap map = new HashMap();
         if (isSnakeMoving())
         {
             t += speed;
