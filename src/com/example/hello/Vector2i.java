@@ -45,6 +45,17 @@ public class Vector2i
             return false;
         }
     }
+    public boolean isZero()
+    {
+        if (x == 0 && y == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     public static Vector2i add(Vector2i vectorA, Vector2i vectorB)
     {
         return new Vector2i(vectorA.x + vectorB.x, vectorA.y + vectorB.y);
