@@ -131,6 +131,39 @@ public class Snake
         }
     }
 
+    public boolean testCollisionSelf()
+    {
+        Vector2i headPosition = segments.getFirst().position;
+        ListIterator<Segment> iterator = segments.listIterator(1);
+        while (iterator.hasNext())
+        {
+            Segment segment = iterator.next();
+            if (headPosition.equals(segment.position))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean testCollisionWalls()
+    {
+        Vector2i headPosition = segments.getFirst().position;
+        if (headPosition.getX() < 0 ||
+            headPosition.getX() > 13 ||
+            headPosition.getY() < 0 ||
+            headPosition.getY() > 13)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean testCollision()
+    {
+        return testCollisionWalls() || testCollisionSelf();
+    }
+
     public void draw(Canvas canvas)
     {
         HashMap map = new HashMap();

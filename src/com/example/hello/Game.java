@@ -4,7 +4,6 @@ import android.graphics.Canvas;
 import android.media.AudioManager;
 import android.media.SoundPool;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -20,6 +19,7 @@ public class Game
     private Image bottleImage;
     private SoundPool sounds;
     private int slurp;
+    private int perkule;
 
     public Game()
     {
@@ -33,6 +33,7 @@ public class Game
         initBottles(view);
         sounds = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
         slurp = sounds.load(view.getContext(), R.raw.kalja, 1);
+        perkule = sounds.load(view.getContext(), R.raw.siikala, 1);
     }
 
     private void initBottles(GameView view)
@@ -91,6 +92,10 @@ public class Game
             }
         }
         snake.draw(canvas);
+        if (snake.testCollision() == true)
+        {
+            sounds.play(perkule, 1.0f, 1.0f, 0, 0, 1.0f);
+        }
     }
 
     public void onTouchEventDown(Vector2 point)
