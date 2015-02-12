@@ -166,14 +166,6 @@ public class Snake
 
     public void draw(Canvas canvas)
     {
-        HashMap map = new HashMap();
-        if (isSnakeMoving())
-        {
-            if (updateTime() == true)
-            {
-                updateSegments();
-            }
-        }
         drawSegments(canvas);
     }
 

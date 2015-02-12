@@ -91,11 +91,29 @@ public class Game
                 sounds.play(slurp, 1.0f, 1.0f, 0, 0, 1.0f);
             }
         }
-        snake.draw(canvas);
+
+        if (snake.isSnakeMoving() && snake.updateTime() == true)
+        {
+            snake.updateSegments();
+        }
+
         if (snake.testCollision() == true)
         {
             sounds.play(perkule, 1.0f, 1.0f, 0, 0, 1.0f);
+            try
+            {
+                Thread.sleep(1000);
+            }
+            catch (Exception e)
+            {
+
+            }
+            snake.initSegments();
+            snake.setDirection(new Vector2i(0, 0));
+            snake.speed = 1;
+            snake.length = 5;
         }
+        snake.draw(canvas);
     }
 
     public void onTouchEventDown(Vector2 point)
