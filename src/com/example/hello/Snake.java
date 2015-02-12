@@ -33,16 +33,9 @@ public class Snake
     {
         return new Image(view, resource);
     }
-
-    public Snake(GameView view)
+    public void initImages()
     {
-        this.view = view;
-        direction = new Vector2i(0, 0);
-        segments = new LinkedList<Segment>();
-        segments.addFirst(new Segment(new Vector2i(5, 5), new Vector2i(0, 0)));
-
         images = new HashMap();
-
         images.put(generateHashKey(0, 0, 0, 0, 0), newImage(R.drawable.snakestop));
         images.put(generateHashKey(0, 0, -1, 0, 0), newImage(R.drawable.snakehorizontal));
         images.put(generateHashKey(0, 0, 1, 0, 0), newImage(R.drawable.snakehorizontal));
@@ -52,36 +45,44 @@ public class Snake
         images.put(generateHashKey(1, 0, 1, 0, 0), newImage(R.drawable.snakehorizontal));
         images.put(generateHashKey(0, -1, 0, -1, 0), newImage(R.drawable.snakevertical));
         images.put(generateHashKey(0, 1, 0, 1, 0), newImage(R.drawable.snakevertical));
-
         images.put(generateHashKey(0, 0, -1, 0, 1), newImage(R.drawable.snakeheadleft));
         images.put(generateHashKey(0, 0, 1, 0, 1), newImage(R.drawable.snakeheadright));
         images.put(generateHashKey(0, 0, 0, -1, 1), newImage(R.drawable.snakeheadup));
         images.put(generateHashKey(0, 0, 0, 1, 1), newImage(R.drawable.snakeheaddown));
-
         images.put(generateHashKey(0, 0, -1, 0, 2), newImage(R.drawable.snaketailleft));
         images.put(generateHashKey(0, 0, 1, 0, 2), newImage(R.drawable.snaketailright));
         images.put(generateHashKey(0, 0, 0, -1, 2), newImage(R.drawable.snaketailup));
         images.put(generateHashKey(0, 0, 0, 1, 2), newImage(R.drawable.snaketaildown));
-
         images.put(generateHashKey(-1, 0, -1, 0, 1), newImage(R.drawable.snakeheadleft));
         images.put(generateHashKey(1, 0, 1, 0, 1), newImage(R.drawable.snakeheadright));
         images.put(generateHashKey(0, -1, 0, -1, 1), newImage(R.drawable.snakeheadup));
         images.put(generateHashKey(0, 1, 0, 1, 1), newImage(R.drawable.snakeheaddown));
-
         images.put(generateHashKey(-1, 0, -1, 0, 2), newImage(R.drawable.snaketailleft));
         images.put(generateHashKey(1, 0, 1, 0, 2), newImage(R.drawable.snaketailright));
         images.put(generateHashKey(0, -1, 0, -1, 2), newImage(R.drawable.snaketailup));
         images.put(generateHashKey(0, 1, 0, 1, 2), newImage(R.drawable.snaketaildown));
-
         images.put(generateHashKey(1, 0, 0, -1, 0), newImage(R.drawable.snakerightup));
         images.put(generateHashKey(1, 0, 0, 1, 0), newImage(R.drawable.snakerightdown));
         images.put(generateHashKey(-1, 0, 0, -1, 0), newImage(R.drawable.snakeleftup));
         images.put(generateHashKey(-1, 0, 0, 1, 0), newImage(R.drawable.snakeleftdown));
-
         images.put(generateHashKey(0, -1, -1, 0, 0), newImage(R.drawable.snakerightdown));
         images.put(generateHashKey(0, -1, 1, 0, 0), newImage(R.drawable.snakeleftdown));
         images.put(generateHashKey(0, 1, -1, 0, 0), newImage(R.drawable.snakerightup));
         images.put(generateHashKey(0, 1, 1, 0, 0), newImage(R.drawable.snakeleftup));
+    }
+
+    public void initSegments()
+    {
+        segments = new LinkedList<Segment>();
+        segments.addFirst(new Segment(new Vector2i(5, 5), new Vector2i(0, 0)));
+    }
+
+    public Snake(GameView view)
+    {
+        this.view = view;
+        direction = new Vector2i(0, 0);
+        initImages();
+        initSegments();
     }
 
     public boolean isSnakeMoving()
