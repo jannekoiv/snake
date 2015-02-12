@@ -1,6 +1,8 @@
 package com.example.hello;
 
 import android.graphics.Canvas;
+import android.media.AudioManager;
+import android.media.SoundPool;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -16,6 +18,8 @@ public class Game
     private Snake snake;
     private LinkedList<Bottle> bottles;
     private Image bottleImage;
+    private SoundPool sounds;
+    private int slurp;
 
     public Game()
     {
@@ -27,6 +31,8 @@ public class Game
         initButtons(view);
         initSnake(view);
         initBottles(view);
+        sounds = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+        slurp = sounds.load(view.getContext(), R.raw.kalja, 1);
     }
 
     private void initBottles(GameView view)
@@ -81,15 +87,14 @@ public class Game
             {
                 snake.length++;
                 snake.speed += 0.1f;
+                sounds.play(slurp, 1.0f, 1.0f, 0, 0, 1.0f);
             }
         }
-
         snake.draw(canvas);
     }
 
     public void onTouchEventDown(Vector2 point)
     {
-
         if (buttons[0].containsPoint(point))
         {
             snake.setDirection(new Vector2i(-1, 0));
