@@ -16,6 +16,10 @@ public class Segment
     public static final int SEGMENT_BODY = 0;
     public static final int SEGMENT_HEAD = 1;
     public static final int SEGMENT_TAIL = 2;
+    private static final int SEGMENT_WIDTH = 48;
+    private static final int SEGMENT_HEIGHT = 48;
+    private static final int SEGMENT_OFFSET_X = 24;
+    private static final int SEGMENT_OFFSET_Y = 24;
 
     public Segment(Vector2i position, Vector2i direction)
     {
@@ -39,14 +43,20 @@ public class Segment
         type = SEGMENT_TAIL;
     }
 
+    private Vector2 scalePosition(Vector2i position)
+    {
+        return new Vector2(position.getX() * SEGMENT_WIDTH + SEGMENT_OFFSET_X,
+                           position.getY() * SEGMENT_HEIGHT + SEGMENT_OFFSET_Y);
+    }
+
     public void draw(Canvas canvas, HashMap images) {
         int hashKey = Snake.generateHashKey(direction.getX(),
                                             direction.getY(),
                                             nextDirection.getX(),
                                             nextDirection.getY(),
                                             type);
-        Image image = (Image) images.get(hashKey);
-        image.move(new Vector2(position.getX() * 48 + 24, position.getY() * 48 + 24));
+        Image image = (Image)images.get(hashKey);
+        image.move(scalePosition(position));
         image.draw(canvas);
     }
 }
