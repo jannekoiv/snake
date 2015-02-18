@@ -14,6 +14,9 @@ public class Segment
     private Vector2i nextDirection;
     private boolean isFirstSegment;
     private boolean isLastSegment;
+    public static final int SEGMENT_BODY = 0;
+    public static final int SEGMENT_HEAD = 1;
+    public static final int SEGMENT_TAIL = 2;
 
     public Segment(Vector2i position, Vector2i direction)
     {
