@@ -107,7 +107,7 @@ public class Snake
         segment.setNextDirection(direction);
         segments.addFirst(new Segment(Vector2i.add(segment.getPosition(), direction), direction));
         limitSegmentCount();
-        segments.getLast().makeLastSegment();
+        segments.getLast().makeTailSegment();
     }
 
     private void limitSegmentCount()

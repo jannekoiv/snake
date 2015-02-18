@@ -12,8 +12,7 @@ public class Segment
     private Vector2i position;
     private Vector2i direction;
     private Vector2i nextDirection;
-    private boolean isFirstSegment;
-    private boolean isLastSegment;
+    private int type;
     public static final int SEGMENT_BODY = 0;
     public static final int SEGMENT_HEAD = 1;
     public static final int SEGMENT_TAIL = 2;
@@ -23,8 +22,7 @@ public class Segment
         this.position = position;
         this.direction = direction;
         this.nextDirection = direction;
-        isFirstSegment = true;
-        isLastSegment = false;
+        type = SEGMENT_HEAD;
     }
 
     public Vector2i getPosition() {
@@ -33,22 +31,15 @@ public class Segment
 
     public void setNextDirection(Vector2i nextDirection) {
         this.nextDirection = nextDirection;
-        isFirstSegment = false;
+        type = SEGMENT_BODY;
     }
 
-    public void makeLastSegment() {
+    public void makeTailSegment() {
         direction = nextDirection;
-        isLastSegment = true;
+        type = SEGMENT_TAIL;
     }
 
     public void draw(Canvas canvas, HashMap images) {
-        int type = 0;
-        if (isFirstSegment) {
-            type = 1;
-        }
-        else if (isLastSegment) {
-            type = 2;
-        }
         int hashKey = Snake.generateHashKey(direction.getX(),
                                             direction.getY(),
                                             nextDirection.getX(),
