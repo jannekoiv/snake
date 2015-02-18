@@ -9,8 +9,7 @@ import java.util.ListIterator;
 /**
  * Created by jak on 1/11/15.
  */
-public class Snake
-{
+public class Snake {
     GameView view;
     private Vector2i direction;
     private float t = 0;
@@ -110,8 +109,7 @@ public class Snake
         segments.getLast().makeTailSegment();
     }
 
-    private void limitSegmentCount()
-    {
+    private void limitSegmentCount() {
         if (segments.size() > length) {
             segments.removeLast();
         }
@@ -147,7 +145,9 @@ public class Snake
             headPosition.getY() > 13) {
             return true;
         }
-        return false;
+        else {
+            return false;
+        }
     }
 
     public void setDirection(Vector2i direction) {
