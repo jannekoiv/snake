@@ -72,10 +72,6 @@ public class Game
     {
         background.draw(canvas);
 
-        for (int i = 0; i < 14; i++)
-        {
-        }
-
         for (int i = 0; i < 4; i++)
         {
             buttons[i].draw(canvas);
@@ -92,10 +88,7 @@ public class Game
             }
         }
 
-        if (snake.isSnakeMoving() && snake.updateTime() == true)
-        {
-            snake.updateSegments();
-        }
+        snake.update();
 
         if (snake.testCollision() == true)
         {
@@ -113,6 +106,7 @@ public class Game
             snake.speed = 1;
             snake.length = 5;
         }
+
         snake.draw(canvas);
     }
 

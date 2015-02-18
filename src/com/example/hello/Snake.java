@@ -18,10 +18,9 @@ public class Snake
     public int length = 5;
     LinkedList<Segment> segments;
     private HashMap images;
+    private static final float TIME_LIMIT = 10;
 
-
-    public static int generateHashKey(int i, int j, int k, int l, int m)
-    {
+    public static int generateHashKey(int i, int j, int k, int l, int m) {
         return i * 10000 +
                j * 1000 +
                k * 100 +
@@ -29,12 +28,11 @@ public class Snake
                m;
     }
 
-    public Image newImage(int resource)
-    {
+    public Image newImage(int resource) {
         return new Image(view, resource);
     }
-    public void initImages()
-    {
+
+    public void initImages() {
         images = new HashMap();
         images.put(generateHashKey(0, 0, 0, 0, 0), newImage(R.drawable.snakestop));
         images.put(generateHashKey(0, 0, -1, 0, 0), newImage(R.drawable.snakehorizontal));
@@ -71,41 +69,40 @@ public class Snake
         images.put(generateHashKey(0, 1, 1, 0, 0), newImage(R.drawable.snakeleftup));
     }
 
-    public void initSegments()
-    {
+    public void initSegments() {
         segments = new LinkedList<Segment>();
         segments.addFirst(new Segment(new Vector2i(5, 5), new Vector2i(0, 0)));
     }
 
-    public Snake(GameView view)
-    {
+    public Snake(GameView view) {
         this.view = view;
         direction = new Vector2i(0, 0);
         initImages();
         initSegments();
     }
 
-    public boolean isSnakeMoving()
-    {
+    public void update() {
+        if (isSnakeMoving() == true && updateTime() == true) {
+            updateSegments();
+        }
+    }
+
+    private boolean isSnakeMoving() {
         return !direction.isZero();
     }
 
-    public boolean updateTime()
-    {
-        t += speed;
-        if (t >= 10)
-        {
+    private boolean updateTime() {
+        ++t;
+        if (t > TIME_LIMIT) {
             t = 0;
             return true;
         }
-        else
-        {
+        else {
             return false;
         }
     }
 
-    public void updateSegments()
-    {
+    private void updateSegments() {
         Segment segment = segments.getFirst();
         segment.isFirstSegment = false;
         segment.setNextDirection(direction);
@@ -113,64 +110,47 @@ public class Snake
         Segment newSegment = new Segment(newPosition, direction);
         newSegment.isFirstSegment = true;
         segments.addFirst(newSegment);
-        if (segments.size() > length)
-        {
+        if (segments.size() > length) {
             segments.removeLast();
         }
         segments.getLast().direction = segments.getLast().nextDirection;
         segments.getLast().isLastSegment = true;
     }
 
-    public void drawSegments(Canvas canvas)
-    {
-        ListIterator<Segment> iterator = segments.listIterator();
-        while (iterator.hasNext())
-        {
-            Segment segment = iterator.next();
+    public void draw(Canvas canvas) {
+        for (Segment segment : segments) {
             segment.draw(canvas, images);
         }
     }
 
-    public boolean testCollisionSelf()
-    {
+    public boolean testCollision() {
+        return testCollisionWalls() || testCollisionSelf();
+    }
+
+    private boolean testCollisionSelf() {
         Vector2i headPosition = segments.getFirst().position;
         ListIterator<Segment> iterator = segments.listIterator(1);
-        while (iterator.hasNext())
-        {
+        while (iterator.hasNext()) {
             Segment segment = iterator.next();
-            if (headPosition.equals(segment.position))
-            {
+            if (headPosition.equals(segment.position)) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean testCollisionWalls()
-    {
+    private boolean testCollisionWalls() {
         Vector2i headPosition = segments.getFirst().position;
         if (headPosition.getX() < 0 ||
             headPosition.getX() > 13 ||
             headPosition.getY() < 0 ||
-            headPosition.getY() > 13)
-        {
+            headPosition.getY() > 13) {
             return true;
         }
         return false;
     }
 
-    public boolean testCollision()
-    {
-        return testCollisionWalls() || testCollisionSelf();
-    }
-
-    public void draw(Canvas canvas)
-    {
-        drawSegments(canvas);
-    }
-
-    public void setDirection(Vector2i direction)
-    {
+    public void setDirection(Vector2i direction) {
         this.direction = direction;
     }
 }
