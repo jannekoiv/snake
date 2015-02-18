@@ -30,8 +30,8 @@ public class Bottle
     public boolean draw(Canvas canvas, Image image, LinkedList<Segment> segments)
     {
         boolean collected = false;
-        if (segments.getFirst().position.getX() == positionX &&
-            segments.getFirst().position.getY() == positionY)
+        if (segments.getFirst().getPosition().getX() == positionX &&
+            segments.getFirst().getPosition().getY() == positionY)
         {
             do
             {
@@ -51,8 +51,8 @@ public class Bottle
         while (iterator.hasNext())
         {
             Segment segment = iterator.next();
-            if (segment.position.getX() == positionX &&
-                segment.position.getY() == positionY)
+            if (segment.getPosition().getX() == positionX &&
+                segment.getPosition().getY() == positionY)
             {
                 return true;
             }

@@ -9,43 +9,49 @@ import java.util.HashMap;
  */
 public class Segment
 {
-    Vector2i position;
-    Vector2i direction;
-    Vector2i nextDirection;
-    boolean isFirstSegment;
-    boolean isLastSegment;
+    private Vector2i position;
+    private Vector2i direction;
+    private Vector2i nextDirection;
+    private boolean isFirstSegment;
+    private boolean isLastSegment;
 
     public Segment(Vector2i position, Vector2i direction)
     {
         this.position = position;
         this.direction = direction;
         this.nextDirection = direction;
-        isFirstSegment = false;
+        isFirstSegment = true;
         isLastSegment = false;
     }
 
-    public void setNextDirection(Vector2i nextDirection)
-    {
-        this.nextDirection = nextDirection;
+    public Vector2i getPosition() {
+        return position;
     }
 
-    public void draw(Canvas canvas, HashMap images)
-    {
-        int t = 0;
-        if (isFirstSegment)
-        {
-            t = 1;
+    public void setNextDirection(Vector2i nextDirection) {
+        this.nextDirection = nextDirection;
+        isFirstSegment = false;
+    }
+
+    public void makeLastSegment() {
+        direction = nextDirection;
+        isLastSegment = true;
+    }
+
+    public void draw(Canvas canvas, HashMap images) {
+        int type = 0;
+        if (isFirstSegment) {
+            type = 1;
         }
-        else if (isLastSegment)
-        {
-            t = 2;
+        else if (isLastSegment) {
+            type = 2;
         }
         int hashKey = Snake.generateHashKey(direction.getX(),
                                             direction.getY(),
                                             nextDirection.getX(),
                                             nextDirection.getY(),
-                                            t);
-        Image image = (Image)images.get(hashKey);
+                                            type);
+        Image image = (Image) images.get(hashKey);
         image.move(new Vector2(position.getX() * 48 + 24, position.getY() * 48 + 24));
         image.draw(canvas);
     }
