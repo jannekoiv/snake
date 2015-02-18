@@ -34,7 +34,7 @@ public class Snake
 
     public void initImages() {
         images = new HashMap();
-        images.put(generateHashKey(0, 0, 0, 0, 0), newImage(R.drawable.snakestop));
+        images.put(generateHashKey(0, 0, 0, 0, 1), newImage(R.drawable.snakestop));
         images.put(generateHashKey(0, 0, -1, 0, 0), newImage(R.drawable.snakehorizontal));
         images.put(generateHashKey(0, 0, 1, 0, 0), newImage(R.drawable.snakehorizontal));
         images.put(generateHashKey(0, 0, 0, -1, 0), newImage(R.drawable.snakevertical));
@@ -92,7 +92,7 @@ public class Snake
     }
 
     private boolean updateTime() {
-        ++t;
+        t += speed;
         if (t > TIME_LIMIT) {
             t = 0;
             return true;
@@ -104,17 +104,17 @@ public class Snake
 
     private void updateSegments() {
         Segment segment = segments.getFirst();
-        segment.isFirstSegment = false;
         segment.setNextDirection(direction);
-        Vector2i newPosition = new Vector2i(Vector2i.add(segment.position, direction));
-        Segment newSegment = new Segment(newPosition, direction);
-        newSegment.isFirstSegment = true;
-        segments.addFirst(newSegment);
+        segments.addFirst(new Segment(Vector2i.add(segment.getPosition(), direction), direction));
+        limitSegmentCount();
+        segments.getLast().makeLastSegment();
+    }
+
+    private void limitSegmentCount()
+    {
         if (segments.size() > length) {
             segments.removeLast();
         }
-        segments.getLast().direction = segments.getLast().nextDirection;
-        segments.getLast().isLastSegment = true;
     }
 
     public void draw(Canvas canvas) {
@@ -128,11 +128,11 @@ public class Snake
     }
 
     private boolean testCollisionSelf() {
-        Vector2i headPosition = segments.getFirst().position;
+        Vector2i headPosition = segments.getFirst().getPosition();
         ListIterator<Segment> iterator = segments.listIterator(1);
         while (iterator.hasNext()) {
             Segment segment = iterator.next();
-            if (headPosition.equals(segment.position)) {
+            if (headPosition.equals(segment.getPosition())) {
                 return true;
             }
         }
@@ -140,7 +140,7 @@ public class Snake
     }
 
     private boolean testCollisionWalls() {
-        Vector2i headPosition = segments.getFirst().position;
+        Vector2i headPosition = segments.getFirst().getPosition();
         if (headPosition.getX() < 0 ||
             headPosition.getX() > 13 ||
             headPosition.getY() < 0 ||
