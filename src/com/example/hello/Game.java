@@ -16,7 +16,6 @@ public class Game
     private Image[] buttons;
     private Snake snake;
     private LinkedList<Bottle> bottles;
-    private Image bottleImage;
     private SoundPool sounds;
     private int slurp;
     private int perkule;
@@ -39,9 +38,8 @@ public class Game
     private void initBottles(GameView view)
     {
         bottles = new LinkedList<Bottle>();
-        Bottle bottle = new Bottle();
+        Bottle bottle = new Bottle(view);
         bottles.addFirst(bottle);
-        bottleImage = new Image(view, R.drawable.sihi);
     }
 
     private void initSnake(GameView view)
@@ -79,7 +77,7 @@ public class Game
         ListIterator<Bottle> iterator = bottles.listIterator();
         while (iterator.hasNext())
         {
-            if (iterator.next().draw(canvas, bottleImage, snake.segments) == true)
+            if (iterator.next().draw(canvas, snake.segments) == true)
             {
                 snake.length++;
                 snake.speed += 0.1f;

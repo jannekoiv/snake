@@ -12,11 +12,13 @@ import java.util.Random;
 public class Bottle
 {
     Vector2i position;
+    private Image image;
 
-    public Bottle()
+    public Bottle(GameView view)
     {
         Random random = new Random();
         position = new Vector2i(random.nextInt(14), random.nextInt(14));
+        image = new Image(view, R.drawable.sihi);
     }
 
     private void init()
@@ -25,7 +27,7 @@ public class Bottle
         position = new Vector2i(random.nextInt(14), random.nextInt(14));
     }
 
-    public boolean draw(Canvas canvas, Image image, LinkedList<Segment> segments)
+    public boolean draw(Canvas canvas, LinkedList<Segment> segments)
     {
         boolean collected = false;
         if (segments.getFirst().getPosition().getX() == position.getX() &&
