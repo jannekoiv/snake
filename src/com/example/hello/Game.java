@@ -40,7 +40,6 @@ public class Game
     {
         bottles = new LinkedList<Bottle>();
         Bottle bottle = new Bottle();
-        bottle.init();
         bottles.addFirst(bottle);
         bottleImage = new Image(view, R.drawable.sihi);
     }

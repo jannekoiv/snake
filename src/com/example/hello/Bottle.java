@@ -15,9 +15,11 @@ public class Bottle
 
     public Bottle()
     {
+        Random random = new Random();
+        position = new Vector2i(random.nextInt(14), random.nextInt(14));
     }
 
-    public void init()
+    private void init()
     {
         Random random = new Random();
         position = new Vector2i(random.nextInt(14), random.nextInt(14));
