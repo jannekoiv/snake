@@ -1,7 +1,6 @@
 package com.example.hello;
 
 import android.graphics.Canvas;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -19,16 +18,11 @@ public class Snake {
     private HashMap images;
     private static final float TIME_LIMIT = 10;
 
-    public static int generateHashKey(int i, int j, int k, int l, int m) {
-        return i * 10000 +
-               j * 1000 +
-               k * 100 +
-               l * 10 +
-               m;
-    }
-
-    public Image newImage(int resource) {
-        return new Image(view, resource);
+    public Snake(GameView view) {
+        this.view = view;
+        direction = new Vector2i(0, 0);
+        initImages();
+        initSegments();
     }
 
     public void initImages() {
@@ -68,16 +62,21 @@ public class Snake {
         images.put(generateHashKey(0, 1, 1, 0, Segment.SEGMENT_BODY), newImage(R.drawable.snakeleftup));
     }
 
+    public static int generateHashKey(int i, int j, int k, int l, int m) {
+        return i * 10000 +
+               j * 1000 +
+               k * 100 +
+               l * 10 +
+               m;
+    }
+
+    public Image newImage(int resource) {
+        return new Image(view, resource);
+    }
+
     public void initSegments() {
         segments = new LinkedList<Segment>();
         segments.addFirst(new Segment(new Vector2i(5, 5), new Vector2i(0, 0)));
-    }
-
-    public Snake(GameView view) {
-        this.view = view;
-        direction = new Vector2i(0, 0);
-        initImages();
-        initSegments();
     }
 
     public void update() {
