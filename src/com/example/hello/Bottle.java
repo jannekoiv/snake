@@ -11,9 +11,7 @@ import java.util.Random;
  */
 public class Bottle
 {
-    private int positionX;
-    private int positionY;
-    private int type;
+    Vector2i position;
 
     public Bottle()
     {
@@ -22,16 +20,14 @@ public class Bottle
     public void init()
     {
         Random random = new Random();
-        positionX = random.nextInt(14);
-        positionY = random.nextInt(14);
-        type = 0;
+        position = new Vector2i(random.nextInt(14), random.nextInt(14));
     }
 
     public boolean draw(Canvas canvas, Image image, LinkedList<Segment> segments)
     {
         boolean collected = false;
-        if (segments.getFirst().getPosition().getX() == positionX &&
-            segments.getFirst().getPosition().getY() == positionY)
+        if (segments.getFirst().getPosition().getX() == position.getX() &&
+            segments.getFirst().getPosition().getY() == position.getY())
         {
             do
             {
@@ -39,7 +35,7 @@ public class Bottle
             } while (isPositionOccupied(segments));
             collected = true;
         }
-        image.move(new Vector2(positionX * 48 + 24, positionY * 48 + 24));
+        image.move(new Vector2(position.getX() * 48 + 24, position.getY() * 48 + 24));
         image.draw(canvas);
         return collected;
     }
@@ -51,8 +47,8 @@ public class Bottle
         while (iterator.hasNext())
         {
             Segment segment = iterator.next();
-            if (segment.getPosition().getX() == positionX &&
-                segment.getPosition().getY() == positionY)
+            if (segment.getPosition().getX() == position.getX() &&
+                segment.getPosition().getY() == position.getY())
             {
                 return true;
             }
