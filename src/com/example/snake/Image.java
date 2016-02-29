@@ -1,10 +1,8 @@
-package com.example.hello;
+package com.example.snake;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-
-import java.io.InputStream;
 
 /**
  * Created by jak on 1/11/15.
@@ -14,7 +12,7 @@ public class Image
     private GameView view;
     public Vector2 position;
     private Vector2 size;
-    private Bitmap bitmap;
+    public Bitmap bitmap;
 
     public Image(GameView view, int input)
     {

@@ -1,4 +1,4 @@
-package com.example.hello;
+package com.example.snake;
 /**
  * Created by jak on 1/11/15.
  */

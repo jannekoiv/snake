@@ -1,6 +1,8 @@
-package com.example.hello;
+package com.example.snake;
 
 import android.graphics.Canvas;
+import com.example.snake.R;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -10,19 +12,26 @@ import java.util.ListIterator;
  */
 public class Snake {
     GameView view;
-    private Vector2i direction;
-    private float t = 0;
-    public float speed = 1;
-    public int length = 5;
-    LinkedList<Segment> segments;
+    private Vector2old direction;
+    private float t;
+    private float speed;
+    private int length;
     private HashMap images;
+    LinkedList<Segment> segments;
     private static final float TIME_LIMIT = 10;
 
     public Snake(GameView view) {
         this.view = view;
-        direction = new Vector2i(0, 0);
+        initVariables();
         initImages();
         initSegments();
+    }
+
+    private void initVariables() {
+        direction = new Vector2old(0, 0);
+        t = 0;
+        speed = 1;
+        length = 5;
     }
 
     public void initImages() {
@@ -76,7 +85,7 @@ public class Snake {
 
     public void initSegments() {
         segments = new LinkedList<Segment>();
-        segments.addFirst(new Segment(new Vector2i(5, 5), new Vector2i(0, 0)));
+        segments.addFirst(new Segment(new Vector2old(5, 5), new Vector2old(0, 0)));
     }
 
     public void update() {
@@ -103,7 +112,7 @@ public class Snake {
     private void updateSegments() {
         Segment segment = segments.getFirst();
         segment.setNextDirection(direction);
-        segments.addFirst(new Segment(Vector2i.add(segment.getPosition(), direction), direction));
+        segments.addFirst(new Segment(Vector2old.add(segment.getPosition(), direction), direction));
         limitSegmentCount();
         segments.getLast().makeTailSegment();
     }
@@ -125,7 +134,7 @@ public class Snake {
     }
 
     private boolean testCollisionSelf() {
-        Vector2i headPosition = segments.getFirst().getPosition();
+        Vector2old headPosition = segments.getFirst().getPosition();
         ListIterator<Segment> iterator = segments.listIterator(1);
         while (iterator.hasNext()) {
             Segment segment = iterator.next();
@@ -133,11 +142,13 @@ public class Snake {
                 return true;
             }
         }
+
+
         return false;
     }
 
     private boolean testCollisionWalls() {
-        Vector2i headPosition = segments.getFirst().getPosition();
+        Vector2old headPosition = segments.getFirst().getPosition();
         if (headPosition.getX() < 0 ||
             headPosition.getX() > 13 ||
             headPosition.getY() < 0 ||
@@ -149,7 +160,19 @@ public class Snake {
         }
     }
 
-    public void setDirection(Vector2i direction) {
+    public void setDirection(Vector2old direction) {
         this.direction = direction;
     }
+
+    public void reset() {
+        initVariables();
+        initSegments();
+    }
+
+    public void grow() {
+        length++;
+        speed += 0.1f;
+    }
+
+
 }

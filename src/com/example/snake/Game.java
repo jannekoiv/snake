@@ -1,8 +1,9 @@
-package com.example.hello;
+package com.example.snake;
 
 import android.graphics.Canvas;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import com.example.snake.R;
 
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -79,8 +80,7 @@ public class Game
         {
             if (iterator.next().draw(canvas, snake.segments) == true)
             {
-                snake.length++;
-                snake.speed += 0.1f;
+                snake.grow();
                 sounds.play(slurp, 1.0f, 1.0f, 0, 0, 1.0f);
             }
         }
@@ -99,11 +99,9 @@ public class Game
 
             }
             snake.initSegments();
-            snake.setDirection(new Vector2i(0, 0));
-            snake.speed = 1;
-            snake.length = 5;
+            snake.setDirection(new Vector2old(0, 0));
+            snake.reset();
         }
-
         snake.draw(canvas);
     }
 
@@ -111,19 +109,19 @@ public class Game
     {
         if (buttons[0].containsPoint(point))
         {
-            snake.setDirection(new Vector2i(-1, 0));
+            snake.setDirection(new Vector2old(-1, 0));
         }
         else if (buttons[1].containsPoint(point))
         {
-            snake.setDirection(new Vector2i(1, 0));
+            snake.setDirection(new Vector2old(1, 0));
         }
         else if (buttons[2].containsPoint(point))
         {
-            snake.setDirection(new Vector2i(0, -1));
+            snake.setDirection(new Vector2old(0, -1));
         }
         else if (buttons[3].containsPoint(point))
         {
-            snake.setDirection(new Vector2i(0, 1));
+            snake.setDirection(new Vector2old(0, 1));
         }
     }
 }

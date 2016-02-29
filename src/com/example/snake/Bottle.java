@@ -1,6 +1,7 @@
-package com.example.hello;
+package com.example.snake;
 
 import android.graphics.Canvas;
+import com.example.snake.R;
 
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -11,20 +12,20 @@ import java.util.Random;
  */
 public class Bottle
 {
-    Vector2i position;
+    Vector2old position;
     private Image image;
 
     public Bottle(GameView view)
     {
         Random random = new Random();
-        position = new Vector2i(random.nextInt(14), random.nextInt(14));
+        position = new Vector2old(random.nextInt(14), random.nextInt(14));
         image = new Image(view, R.drawable.sihi);
     }
 
     private void init()
     {
         Random random = new Random();
-        position = new Vector2i(random.nextInt(14), random.nextInt(14));
+        position = new Vector2old(random.nextInt(14), random.nextInt(14));
     }
 
     public boolean draw(Canvas canvas, LinkedList<Segment> segments)

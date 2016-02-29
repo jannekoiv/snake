@@ -1,4 +1,4 @@
-package com.example.hello;
+package com.example.snake;
 
 import android.app.Activity;
 import android.media.AudioManager;
@@ -7,8 +7,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.content.Context;
 
 public class Main extends Activity {
     private TextView message;

@@ -1,8 +1,7 @@
-package com.example.hello;
+package com.example.snake;
 
 import android.annotation.SuppressLint;
 import android.graphics.Canvas;
-import android.util.Log;
 
 /**
  * Created by jak on 1/9/15.
